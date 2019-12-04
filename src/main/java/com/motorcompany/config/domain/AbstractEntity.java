@@ -1,4 +1,4 @@
-package com.motorcompany.motorvehiclesfactory.model;
+package com.motorcompany.config.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,21 +12,12 @@ import java.util.Objects;
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+private long id;
 
-    public AbstractEntity() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private static final long serialVersionUID =1L;
 
     @Override
     public boolean equals(Object o) {
@@ -36,8 +27,19 @@ public class AbstractEntity implements Serializable {
         return Objects.equals(id, that.id);
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public AbstractEntity() {
     }
 }
