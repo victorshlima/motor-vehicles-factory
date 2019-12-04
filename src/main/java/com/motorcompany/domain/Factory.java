@@ -16,10 +16,10 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonAutoDetect
 @Entity
-public class VehicleAttributes extends AbstractEntity {
+public class Factory extends AbstractEntity {
 
     @NotNull(message = "modelCode is a mandatory field")
-    @Column(unique = true, nullable = true)
+    @Column(nullable = true)
     private int modelCode;
 
     @Column(nullable = true)

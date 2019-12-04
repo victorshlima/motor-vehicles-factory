@@ -17,22 +17,16 @@ import java.util.List;
 @EnableSwagger2
 @RestController
 @RequestMapping(value = "v1")
-public class VehiclesEndpoints {
+public class Vehicles {
 
     @Autowired
     private final VehicleDao vehicleDao;
 
-    public VehiclesEndpoints(VehicleDao vehicleDao) {
+    public Vehicles(VehicleDao vehicleDao) {
         this.vehicleDao = vehicleDao;
     }
 
-    @GetMapping("/status")
-    @ApiOperation(value = "Return the Status of Application", response = String.class)
-    @ResponseStatus(HttpStatus.OK)
-    //verificar db
-    public String StatusApplication() {
-        return "Online";
-    }
+
 
     @PostMapping(path = "/vehicle")
     @ApiOperation(value = "Create a Vehicle Entity", response = Vehicle.class)
