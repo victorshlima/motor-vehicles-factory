@@ -15,11 +15,11 @@ public class VehicleDaoService {
     VehicleDao vehicleDao;
 
 
-    public Vehicle CreateVehicle(Vehicle vehicle)
-    {
-
-        vehicleDao.save(vehicle);
-        return vehicle;
-    }
+//    public Vehicle CreateVehicle(Vehicle vehicle)
+//    {
+//
+//        vehicleDao.save(vehicle);
+//        return vehicle;
+//    }
 
 }

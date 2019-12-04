@@ -6,11 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "vehicle")
 public class Vehicle extends AbstractEntity {
 
-    @Id // remover o getter para ficar invisivel
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+
 
     @Column(unique = true)
  //   @GeneratedValue(strategy = GenerationType.AUTO)

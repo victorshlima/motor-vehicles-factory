@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("v1/")
 public class Endpoints {
 
     @Autowired
     VehicleDaoService vehicleDaoService;
+
+    Vehicle vehicle;
 
     private final  VehicleDao vehicleDao;
 
@@ -29,7 +32,7 @@ public class Endpoints {
         this.vehicleDao = vehicleDao;
     }
 
-    @GetMapping("/status")
+    @GetMapping("status")
     @ApiOperation(value = "Return the Status of Application", response = String.class)
     @ResponseStatus(HttpStatus.OK)
     //verificar db
@@ -37,26 +40,37 @@ public class Endpoints {
         return "Online";
     }
 
-
-    @PostMapping(path = "/vehicle")
+    @PostMapping(path = "vehicle")
     @ApiOperation(value = "Create a Vehicle Entity", response = String.class)
-    @Transactional()
     public ResponseEntity<?> CreateVehicleEntity(@Valid @RequestBody Vehicle vehicle) {
         return new ResponseEntity<>(vehicleDao.save(vehicle),HttpStatus.CREATED);
     }
 
-//    @PutMapping(path = "/vehicle")
-//    @ApiOperation(value = "atualize a Vehicle Entity", response = String.class)
-//    @Transactional()
-//    public ResponseEntity<?> save(@Valid @RequestBody Vehicle vehicle) {
-//        return new ResponseEntity<>(vehicleDao.save(vehicle).getModel_code(),HttpStatus.CREATED);
-//    }
+    //PATCH causa erro no MOCK test
+    @PutMapping(path = "vehicle")
+    @ApiOperation(value = "atualize a Vehicle Entity", response = String.class)
+    public ResponseEntity<?> save(@Valid @RequestBody Vehicle vehicle) {
+        return new ResponseEntity<>(vehicleDao.save(vehicle).getModel_code(),HttpStatus.CREATED);
+    }
 
-//    @DeleteMapping (path = "/vehicle/{model_code}")
-//    @ApiOperation(value = "Delete a Vehicle Entity", response = String.class)
-//    @Transactional()
-//    public ResponseEntity<?> deleteVehicleEntity(@PathVariable("model_code") int model_code ) {
-//        return new ResponseEntity<>(vehicleDao.deleteByModel_code(model_code),HttpStatus.CREATED);
-//    }
+
+    @DeleteMapping(path = "vehicle/{model_code}")
+    public ResponseEntity<?> delete(@PathVariable Long model_code) {
+        vehicleDao.delete(model_code);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
+    @GetMapping("vehicle/{model_code}")
+    @ResponseStatus(HttpStatus.OK)
+    public Vehicle getVehicleById(@PathVariable("model_code") Long model_code) {
+        return vehicleDao.findById(model_code);
+    }
+
+    @GetMapping("vehicle")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Vehicle> getAllVehicle() {
+        return vehicleDao.findAll();
+    }
 
 }
