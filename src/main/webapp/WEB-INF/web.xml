@@ -9,7 +9,7 @@
     </context-param>
     <context-param>
         <param-name>log4jContextName</param-name>
-        <param-value>votation-api</param-value>
+        <param-value>motor-vehicles-factory</param-value>
     </context-param>
     <context-param>
         <param-name>log4jConfiguration</param-name>
