@@ -11,13 +11,14 @@ import com.motorcompany.enums.vehicle.PaintType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonAutoDetect
 @Entity
-public class Factory extends AbstractEntity {
+public class Factory extends AbstractEntity implements Serializable {
 
     @NotNull(message = "modelCode is a mandatory field")
     @Column(nullable = true)
@@ -48,19 +49,41 @@ public class Factory extends AbstractEntity {
         this.exteriorCollor = exteriorCollor;
     }
 
-    public PaintType getPaintType() {
-        return paintType;
-    }
-
-    public void setPaintType(PaintType paintType) {
-        paintType = paintType;
-    }
-
     public InteriorType getInteriorType() {
         return interiorType;
     }
 
     public void setInteriorType(InteriorType interiorType) {
         this.interiorType = interiorType;
+    }
+
+    public PaintType getPaintType() {
+        return paintType;
+    }
+
+    public void setPaintType(PaintType paintType) {
+        this.paintType = paintType;
+    }
+
+    public Factory() {
+
+    }
+
+
+    public Factory(@NotNull(message = "modelCode is a mandatory field") int modelCode, ExteriorCollor exteriorCollor, PaintType paintType, InteriorType interiorType) {
+        this.modelCode = modelCode;
+        this.exteriorCollor = exteriorCollor;
+        this.paintType = paintType;
+        this.interiorType = interiorType;
+    }
+
+    @Override
+    public String toString() {
+        return "Factory{" +
+                "modelCode=" + modelCode +
+                ", exteriorCollor=" + exteriorCollor +
+                ", paintType=" + paintType +
+                ", interiorType=" + interiorType +
+                '}';
     }
 }
