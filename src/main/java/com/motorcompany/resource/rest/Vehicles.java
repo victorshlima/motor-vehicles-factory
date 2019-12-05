@@ -9,12 +9,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.motorcompany.domain.*;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //import io.swagger.annotations.ApiOperation;
 import javax.transaction.Transactional;
 import java.util.List;
 
-//@EnableSwagger2
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "v1")
 public class Vehicles {

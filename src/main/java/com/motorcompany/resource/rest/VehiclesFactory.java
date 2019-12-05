@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 //import static com.motorcompany.messaging.config.ConfigFatoryQueue.FACTORY_QUEUE;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 //import io.swagger.annotations.ApiOperation;
 
 
-//@EnableSwagger2
+@EnableSwagger2
 @RestController
 @RequestMapping(value = "v1")
 public class VehiclesFactory {
