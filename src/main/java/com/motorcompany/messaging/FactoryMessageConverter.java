@@ -7,7 +7,7 @@ import com.motorcompany.domain.Factory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.cloudfoundry.com.fasterxml.jackson.core.JsonParseException;
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.support.converter.MessageConversionException;
 import org.springframework.jms.support.converter.MessageConverter;
