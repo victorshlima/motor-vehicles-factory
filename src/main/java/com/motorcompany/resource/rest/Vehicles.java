@@ -1,7 +1,7 @@
 package com.motorcompany.resource.rest;
 
 
-import com.motorcompany.dao.VehicleDao;
+import com.motorcompany.dao.VehicleModelDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +20,9 @@ import java.util.List;
 public class Vehicles {
 
     @Autowired
-    private final VehicleDao vehicleDao;
+    private final VehicleModelDao vehicleDao;
 
-    public Vehicles(VehicleDao vehicleDao) {
+    public Vehicles(VehicleModelDao vehicleDao) {
         this.vehicleDao = vehicleDao;
     }
 

@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public interface VehicleDao extends CrudRepository<VehicleModel, Long> {
+public interface VehicleModelDao extends CrudRepository<VehicleModel, Long> {
     List<VehicleModel> findAll();
     VehicleModel save(VehicleModel vehicle);
     VehicleModel findByModelCode(int modelCode);

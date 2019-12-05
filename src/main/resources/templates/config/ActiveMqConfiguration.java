@@ -1,6 +1,5 @@
 package templates.config;
 
-import com.motorcompany.dao.VehicleDao;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.command.ActiveMQQueue;

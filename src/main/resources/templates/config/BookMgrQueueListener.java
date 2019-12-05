@@ -1,7 +1,7 @@
 package templates.config;
 
 
-import com.motorcompany.dao.VehicleDao;
+import com.motorcompany.dao.VehicleModelDao;
 import com.motorcompany.domain.VehicleStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
@@ -12,10 +12,10 @@ import javax.jms.JMSException;
 @Component
 public class BookMgrQueueListener {
 
-    private final VehicleDao vehicleDao;
+    private final VehicleModelDao vehicleDao;
 
     @Autowired
-    public BookMgrQueueListener(VehicleDao vehicleDao) {
+    public BookMgrQueueListener(VehicleModelDao vehicleDao) {
         this.vehicleDao = vehicleDao;
     }
 

@@ -27,6 +27,9 @@ public class VehiclesFactory {
     @PostMapping(path = "/factory")
 //    @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
+
+
+
         return new ResponseEntity<>(factoryDao.save(factory).getId(),HttpStatus.CREATED);
     }
 
