@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
+import com.motorcompany.enums.vehicle.PaintType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Factory extends AbstractEntity {
     private ExteriorCollor exteriorCollor;
 
     @Column(nullable = true)
-    private com.motorcompany.enums.vehicle.PaintType PaintType;
+    private PaintType paintType;
 
     @Column(nullable = true)
     private InteriorType interiorType;
@@ -47,12 +48,12 @@ public class Factory extends AbstractEntity {
         this.exteriorCollor = exteriorCollor;
     }
 
-    public com.motorcompany.enums.vehicle.PaintType getPaintType() {
-        return PaintType;
+    public PaintType getPaintType() {
+        return paintType;
     }
 
-    public void setPaintType(com.motorcompany.enums.vehicle.PaintType paintType) {
-        PaintType = paintType;
+    public void setPaintType(PaintType paintType) {
+        paintType = paintType;
     }
 
     public InteriorType getInteriorType() {

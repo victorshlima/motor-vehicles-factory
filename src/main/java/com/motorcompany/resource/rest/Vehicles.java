@@ -30,27 +30,27 @@ public class Vehicles {
 
     @PostMapping(path = "/vehicle")
   //  @ApiOperation(value = "Create a Vehicle Entity", response = Vehicle.class)
-    public ResponseEntity<?> CreateVehicleEntity(@RequestBody Vehicle vehicle) {
+    public ResponseEntity<?> CreateVehicleEntity(@RequestBody VehicleModel vehicle) {
         return new ResponseEntity<>(vehicleDao.save(vehicle),HttpStatus.CREATED);
     }
 
     //PATCH causa erro no MOCK test
     @PutMapping(path = "vehicle/{modelCode}")
   //  @ApiOperation(value = "atualize a Vehicle Entity", response = String.class)
-    public ResponseEntity<?> save(@PathVariable int modelCode, @RequestBody Vehicle vehicle) {
+    public ResponseEntity<?> save(@PathVariable int modelCode, @RequestBody VehicleModel vehicle) {
         return new ResponseEntity<>(vehicleDao.save(vehicle).getModelCode(),HttpStatus.CREATED);
     }
 
     @GetMapping("vehicle/{modelCode}")
     @ResponseStatus(HttpStatus.OK)
-    public Vehicle getVehicleById(@PathVariable("modelCode") int modelCode) {
+    public VehicleModel getVehicleById(@PathVariable("modelCode") int modelCode) {
         return vehicleDao.findByModelCode(modelCode);
     }
 
     @GetMapping("vehicle")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
-    public List<Vehicle> getAllVehicle() {
+    public List<VehicleModel> getAllVehicle() {
         return vehicleDao.findAll();
     }
 

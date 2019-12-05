@@ -2,7 +2,6 @@ package com.motorcompany.dao;
 
 
 import com.motorcompany.domain.Factory;
-import com.motorcompany.domain.Vehicle;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
