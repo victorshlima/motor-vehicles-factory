@@ -5,18 +5,19 @@ import com.motorcompany.dao.FactoryDao;
 import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.domain.Factory;
 import com.motorcompany.domain.Vehicle;
-import io.swagger.annotations.ApiOperation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//import io.swagger.annotations.ApiOperation;
 
 import javax.transaction.Transactional;
 import java.util.List;
 
-@EnableSwagger2
+//@EnableSwagger2
 @RestController
 @RequestMapping(value = "v1")
 public class VehiclesFactory {
@@ -29,7 +30,7 @@ public class VehiclesFactory {
     }
 
     @PostMapping(path = "/factory")
-    @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
+//    @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
         return new ResponseEntity<>(factoryDao.save(factory).getId(),HttpStatus.CREATED);
     }

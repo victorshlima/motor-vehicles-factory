@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import com.motorcompany.Exception.NotExistDaoException;
-import com.motorcompany.domain.DetailError;
+import com.motorcompany.Exception.DetailError;
 
 
 @ControllerAdvice

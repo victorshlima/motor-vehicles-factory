@@ -107,4 +107,6 @@ public class Vehicle extends AbstractEntity {
                 ", steppe=" + steppe +
                 '}';
     }
+
+
 }

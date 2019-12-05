@@ -1,4 +1,4 @@
-package com.motorcompany.domain;
+package com.motorcompany.Exception;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
