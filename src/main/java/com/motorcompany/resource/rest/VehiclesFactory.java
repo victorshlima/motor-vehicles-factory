@@ -36,6 +36,8 @@ public class VehiclesFactory {
     public VehiclesFactory(FactoryDao factoryDao) {
         this.factoryDao = factoryDao;
     }
+
+
     @PostMapping(path = "/factory")
    // @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {

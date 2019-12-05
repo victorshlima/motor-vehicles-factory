@@ -62,6 +62,7 @@ public class ServiceProducer {
     }
 //
     public  void FabricationProcess(Factory factory) {
+        jmsTemplate.setMessageConverter(messageConverter());
         jmsTemplate.convertAndSend(FACTORY_QUEUE, factory);
     }
 //
@@ -88,6 +89,5 @@ public class ServiceProducer {
         converter.setTargetType(MessageType.TEXT);
         return converter;
     }
-
 
 }
