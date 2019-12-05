@@ -1,4 +1,4 @@
-package com.motorcompany.resource.exception;
+package com.motorcompany.Exception;
 
 
 import org.springframework.http.HttpHeaders;

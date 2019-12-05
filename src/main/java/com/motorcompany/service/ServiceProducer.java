@@ -9,31 +9,17 @@ import com.motorcompany.domain.VehicleModel;
 import com.motorcompany.domain.Vehiculo;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
-import com.motorcompany.enums.vehicle.PaintType;
-import com.motorcompany.messaging.FactoryMessageConverter;
-import org.apache.activemq.ActiveMQConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
-import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.Topic;
-
-import java.io.IOException;
-import java.util.Date;
-
-import static com.motorcompany.messaging.listener.ProducerConfigQueue.FACTORY_QUEUE;
+import static com.motorcompany.messaging.listener.FactoryConsumer.FACTORY_QUEUE;
 
 
 @Service
@@ -60,12 +46,13 @@ public class ServiceProducer {
         JmsTemplate jmsTemplate = new JmsTemplate ();
         jmsTemplate.setMessageConverter(messageConverter());
     }
-//
+
     public  void FabricationProcess(Factory factory) {
         jmsTemplate.setMessageConverter(messageConverter());
         jmsTemplate.convertAndSend(FACTORY_QUEUE, factory);
+
     }
-//
+
     public  void FabricationProcessStesp1(Factory factory) {
         vehicleModel =  vehicleModelDao.findByModelCode(factory.getModelCode());
         vehiculo.setVehicleModel(vehicleModel);

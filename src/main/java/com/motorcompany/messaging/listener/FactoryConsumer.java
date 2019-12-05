@@ -1,7 +1,7 @@
 package com.motorcompany.messaging.listener;
 
 import com.motorcompany.domain.Factory;
-import com.motorcompany.messaging.FactoryMessageConverter;
+import com.motorcompany.messaging.config.FactoryMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Queue;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import java.io.IOException;
 

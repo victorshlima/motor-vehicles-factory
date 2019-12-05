@@ -4,15 +4,14 @@ package com.motorcompany.resource.rest;
 import com.motorcompany.dao.FactoryDao;
 import com.motorcompany.domain.Factory;
 
-//import com.motorcompany.messaging.FactoryMessageConverter;
-import com.motorcompany.messaging.FactoryMessageConverter;
+//import com.motorcompany.messaging.config.FactoryMessageConverter;
+import com.motorcompany.messaging.config.FactoryMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jms.core.JmsTemplate;
 import org.springframework.web.bind.annotation.*;
 
 

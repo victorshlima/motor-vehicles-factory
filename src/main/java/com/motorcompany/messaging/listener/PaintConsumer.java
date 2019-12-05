@@ -1,7 +1,7 @@
 package com.motorcompany.messaging.listener;
 
 import com.motorcompany.domain.Factory;
-import com.motorcompany.messaging.FactoryMessageConverter;
+import com.motorcompany.messaging.config.FactoryMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -39,8 +39,6 @@ public class PaintConsumer {
 
     public Topic TopicFACTORY() {        return new ActiveMQTopic(PAINT_TOPIC);
     }
-    @Autowired
-    JmsTemplate jmsTemplate;
 
     @Autowired
     ServiceProducer factoryServiceImpl  = new ServiceProducer();
