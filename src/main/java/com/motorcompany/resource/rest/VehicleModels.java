@@ -1,12 +1,10 @@
 package com.motorcompany.resource.rest;
 
 
-import com.motorcompany.dao.FactoryDao;
 import com.motorcompany.dao.VehicleModelDao;
-import com.motorcompany.domain.Factory;
 import com.motorcompany.domain.VehicleModel;
 import com.motorcompany.messaging.FactoryMessageConverter;
-import com.motorcompany.service.FactoryServiceImpl;
+import com.motorcompany.service.ServiceProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +31,7 @@ public class VehicleModels {
     JmsTemplate jmsTemplate;
     @Autowired
     private  VehicleModelDao vehicleModelDao;
-    private  FactoryServiceImpl factoryServiceImpl;
+    private ServiceProducer factoryServiceImpl;
     public VehicleModels(VehicleModelDao vehicleModelDao) {
         this.vehicleModelDao = vehicleModelDao;
     }

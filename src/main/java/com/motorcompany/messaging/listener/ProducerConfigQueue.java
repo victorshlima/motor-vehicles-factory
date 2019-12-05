@@ -1,4 +1,4 @@
-package com.motorcompany.messaging.config;
+package com.motorcompany.messaging.listener;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -6,6 +6,7 @@ import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
 import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
@@ -17,6 +18,7 @@ import org.springframework.jms.support.converter.SimpleMessageConverter;
 import javax.jms.Queue;
 import javax.jms.Topic;
 
+@EnableJms
 @Configuration
 public class ProducerConfigQueue {
 
@@ -39,23 +41,8 @@ public class ProducerConfigQueue {
     @Bean
     public JmsListenerContainerFactory<?> queueListenerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-
         return factory;
     }
-
-//    @Bean
-//    public MessageConverter messageConverter() {
-//        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-//        converter.setTargetType(MessageType.TEXT);
-//        converter.setTypeIdPropertyName("_type");
-//        return converter;
-//    }
-//
-//    @Bean
-//    public MessageConverter messageConverter() {
-//        SimpleMessageConverter converter = new SimpleMessageConverter ();//
-//        return converter;
-//    }
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
@@ -68,7 +55,5 @@ public class ProducerConfigQueue {
     public JmsTemplate jmsTemplate() {
         return new JmsTemplate(activeMQConnectionFactory());
     }
-
-
 
 }

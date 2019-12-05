@@ -22,15 +22,15 @@ import java.io.IOException;
 @EnableJms
 @Component
 public class FactoryMessageConverter implements MessageConverter {
-
     private static final Logger LOGGER =
             LoggerFactory.getLogger(FactoryMessageConverter.class);
+
     @Autowired
     ObjectMapper mapper;
 
     @Override
     public Message toMessage(Object object, Session session)
-            throws JMSException {
+       throws JMSException {
         Factory factory = (Factory) object;
         String payload = null;
         try {
@@ -39,16 +39,13 @@ public class FactoryMessageConverter implements MessageConverter {
         } catch (JsonProcessingException e) {
             LOGGER.error("error converting form factory", e);
         }
-
         TextMessage message = session.createTextMessage();
         message.setText(payload);
-
         return message;
     }
 
     @Override
     public Object fromMessage(Message message) throws JMSException, MessageConversionException {
-
         TextMessage textMessage = (TextMessage) message;
         String payload = textMessage.getText();
         message.getObjectProperty("");
@@ -62,6 +59,15 @@ public class FactoryMessageConverter implements MessageConverter {
         return factory;
     }
 
+    public Object JsonUnMarshaller(Object message, Class<?> type) throws JMSException, IOException {
+         TextMessage textMessage = (TextMessage) message;
+         String jsonString = textMessage.getText();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode rootNode = mapper.readTree(jsonString);
+        Object factory = (Factory) mapper.readValue(jsonString, type);
+        return factory;
+    }
+
     public Object JsonUnMarshaller(String jsonString, Class<?> type)
             throws JsonParseException, IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -69,7 +75,6 @@ public class FactoryMessageConverter implements MessageConverter {
         Object factory = (Factory) mapper.readValue(jsonString, type);
         return factory;
     }
-
 
 
 }

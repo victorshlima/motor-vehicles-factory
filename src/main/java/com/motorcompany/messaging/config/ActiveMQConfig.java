@@ -33,35 +33,8 @@ import javax.jms.Topic;
 @EnableJms
 @Configuration
 public class ActiveMQConfig {
-    public static final String STATUS_QUEUE = "status.queue";
-    public static final String STATUS_TOPIC = "status.topic";
-    public static final String FACTORY_QUEUE = "factory.queue";
-    public static final String FACTORY_TOPIC = "factory.topic";
-
     @Value("${activemq.broker-url}")
     private String brokerUrl;
-
-  //  @Primary
-    @Bean
-    public Queue QueueFACTORY() {
-        return new ActiveMQQueue(FACTORY_QUEUE);
-    }
-
-  //  @Primary
-    @Bean
-    public Topic TopicFACTORY() {
-        return new ActiveMQTopic(FACTORY_TOPIC);
-    }
-
-  //  @Qualifier
-   // @Bean
- //   public Queue QueueSTATUS() {        return new ActiveMQQueue(STATUS_QUEUE);    }
-
- //   @Qualifier
- //   @Bean
-// public Topic TopicSTATUS() {
-//        return new ActiveMQTopic(STATUS_TOPIC);
-//    }
 
 
     @Bean
