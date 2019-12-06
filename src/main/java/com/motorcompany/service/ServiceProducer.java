@@ -20,6 +20,9 @@ import org.springframework.jms.support.converter.MessageType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import static com.motorcompany.messaging.listener.FactoryConsumer.FACTORY_QUEUE;
 
 @Service
@@ -57,7 +60,8 @@ public class ServiceProducer {
     public  void FabricationProcessSaveNewVehicle(Factory factory) {
         vehicleModel =  vehicleModelDao.findByModelCode(factory.getModelCode());
         vehiculo.setVehicleModel(vehicleModel);
-     //   vehiculo.setModelYear(new Date().getYear());
+        Calendar cal = GregorianCalendar.getInstance();
+      //  vehiculo.setModelYear(cal.get(Calendar.YEAR));
         vehicleDao.save(vehiculo);
     }
 

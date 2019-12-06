@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
 import com.motorcompany.enums.vehicle.PaintType;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.ui.Model;
 
 import javax.persistence.*;
@@ -17,8 +18,8 @@ import java.util.Date;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     public class Vehicle extends AbstractEntity  {
 
+
     @JsonFormat(pattern = "yyyy")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modelYear")
     private Date modelYear;
 
@@ -26,13 +27,13 @@ import java.util.Date;
     @JoinColumn(name = "id_vehicleModel")
     private VehicleModel vehicleModel;
 
-    @Column(nullable = true)
+    @Column
     private ExteriorCollor exteriorCollor;
 
-    @Column(nullable = true)
+    @Column
     private PaintType paintType;
 
-    @Column(nullable = true)
+    @Column
     private InteriorType interiorType;
 
     public VehicleModel getVehicleModel() {

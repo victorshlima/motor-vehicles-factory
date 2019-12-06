@@ -10,37 +10,41 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonDeserialize
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonAutoDetect
 @Entity
-public class VehicleModel extends AbstractEntity {
+public class VehicleModel  {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    private long id;
 
     @NotNull(message = "modelCode is a mandatory field")
     @Column(unique = true, nullable = true)
     private int modelCode;
 
-    @Column(nullable = true)
+    @Column
     private Whells numberWheels;
 
-    @Column(nullable = true)
+    @Column
     @Range(min = 125, max = 2000, message = "The range value is 125 - 2000")
     private short engineDisplacement;
 
-    @Column(nullable = true)
+    @Column
     private String commercialName;
 
-    @Column(nullable = true)
+    @Column
     private short numberPassengers;
 
     @JsonFormat(pattern = "yyyy")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "modelYear")
     private Date modelYear;
 
-    @Column(nullable = true)
+    @Column
     private Boolean steppe;
 
     public int getModelCode() {
@@ -97,6 +101,26 @@ public class VehicleModel extends AbstractEntity {
 
     public void setSteppe(Boolean steppe) {
         this.steppe = steppe;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VehicleModel that = (VehicleModel) o;
+        return id == that.id &&
+                modelCode == that.modelCode &&
+                engineDisplacement == that.engineDisplacement &&
+                numberPassengers == that.numberPassengers &&
+                numberWheels == that.numberWheels &&
+                Objects.equals(commercialName, that.commercialName) &&
+                Objects.equals(modelYear, that.modelYear) &&
+                Objects.equals(steppe, that.steppe);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, modelCode, numberWheels, engineDisplacement, commercialName, numberPassengers, modelYear, steppe);
     }
 
     @Override

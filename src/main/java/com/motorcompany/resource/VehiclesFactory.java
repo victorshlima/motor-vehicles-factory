@@ -35,7 +35,6 @@ public class VehiclesFactory {
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
       long respondeID =  serviceProducer.factorySave(factory);
         serviceProducer.FabricationProcess(factory);
-
         return new ResponseEntity<>(respondeID,HttpStatus.CREATED);
     }
 }

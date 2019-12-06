@@ -12,10 +12,4 @@ import java.util.List;
 public interface FactoryDao extends CrudRepository<Factory, Long> {
     List<Factory> findAll();
     Factory save(Factory factory);
-
-    @Transactional
-    void deleteById(long id);
-
-
-
 }
