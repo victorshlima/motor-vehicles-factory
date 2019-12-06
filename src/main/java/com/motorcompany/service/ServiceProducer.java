@@ -1,6 +1,7 @@
 package com.motorcompany.service;
 
 
+import com.motorcompany.Exception.NotExistDaoException;
 import com.motorcompany.dao.FactoryDao;
 import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.dao.VehicleModelDao;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Optional;
 
 import static com.motorcompany.messaging.listener.FactoryConsumer.FACTORY_QUEUE;
 
@@ -54,7 +56,8 @@ public class ServiceProducer {
     }
     public void CreateVehicle(Factory factory) {
         try {
-            vehicleModel = vehicleModelDao.findByModelCode(factory.getModelCode());
+            vehicleModel = getVehicleModelByCode(factory.getModelCode());
+
             vehiculo.setVehicleModel(vehicleModel);
             Calendar cal = GregorianCalendar.getInstance();
             vehiculo.setBuildYear(cal.get(Calendar.YEAR));
@@ -93,6 +96,22 @@ public class ServiceProducer {
         factory.setStatus(status);
          factoryDao.save(factory);
     }
+
+    public VehicleModel getVehicleModelByCode(int modelCode) {
+        Optional<VehicleModel> vehicleOptional = Optional.ofNullable(vehicleModelDao.findByModelCode(modelCode));
+        validateVehiclePresence(vehicleOptional);
+        return vehicleOptional.get();
+    }
+
+    private void validateVehiclePresence(Optional<VehicleModel> objectOptional) {
+        if (!objectOptional.isPresent()) {
+            throw new NotExistDaoException("Error agenda not found");
+        }
+    }
+
+
+
+
     @Bean
     public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
