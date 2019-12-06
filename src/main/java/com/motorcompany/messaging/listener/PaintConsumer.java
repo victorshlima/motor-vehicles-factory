@@ -24,7 +24,6 @@ import java.io.IOException;
 
 import static com.motorcompany.messaging.listener.InteriorConsumer.INTERIOR_TYPE_QUEUE;
 
-
 @Component
 public class PaintConsumer {
     public static final String PAINT_QUEUE = "paint.queue";
@@ -33,7 +32,7 @@ public class PaintConsumer {
     @Autowired
     JmsTemplate jmsTemplate;
     @Autowired
-    ServiceProducer factoryServiceImpl = new ServiceProducer();
+    ServiceProducer serviceProducer = new ServiceProducer();
     @Autowired
     GenericMessageConverter factoryMessageConverter;
     @Value("${activemq.broker-url}")
@@ -47,24 +46,20 @@ public class PaintConsumer {
     @JmsListener(destination = PAINT_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
-        factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor(), factory.getPaintType());
+        serviceProducer.SetPaintVehicle(factory);
         jmsTemplate.convertAndSend(INTERIOR_TYPE_QUEUE, factory);
-
     }
-
     @Bean
     public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         return converter;
     }
-
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
         return factory;
     }
-
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();

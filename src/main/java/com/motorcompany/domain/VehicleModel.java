@@ -1,5 +1,4 @@
 package com.motorcompany.domain;
-
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,33 +17,26 @@ import java.util.Objects;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @JsonAutoDetect
 @Entity
-public class VehicleModel {
+public class VehicleModel  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private long id;
-
     @NotNull(message = "modelCode is a mandatory field")
     @Column(unique = true, nullable = true)
     private int modelCode;
-
     @Column
     private Whells numberWheels;
-
     @Column
     @Range(min = 125, max = 2000, message = "The range value is 125 - 2000")
     private short engineDisplacement;
-
     @Column
     private String commercialName;
-
     @Column
     private short numberPassengers;
-
     @JsonFormat(pattern = "yyyy")
     @Column(name = "modelYear")
     private Date modelYear;
-
     @Column
     private Boolean steppe;
 

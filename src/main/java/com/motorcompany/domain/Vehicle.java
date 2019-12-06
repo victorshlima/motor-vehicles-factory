@@ -1,23 +1,21 @@
 package com.motorcompany.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
 import com.motorcompany.enums.vehicle.PaintType;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
 @Table(name = "vehicle")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Vehicle extends AbstractEntity {
-    @JsonFormat(pattern = "yyyy")
-    @Column(name = "modelYear")
-    private Date modelYear;
-    @OneToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicleModel")
     private VehicleModel vehicleModel;
     @Column
@@ -26,6 +24,8 @@ public class Vehicle extends AbstractEntity {
     private PaintType paintType;
     @Column
     private InteriorType interiorType;
+    @Column
+    private int buildYear;
 
     public VehicleModel getVehicleModel() {
         return vehicleModel;
@@ -59,11 +59,22 @@ public class Vehicle extends AbstractEntity {
         this.interiorType = interiorType;
     }
 
-    public Date getModelYear() {
-        return modelYear;
+    public int getBuildYear() {
+        return buildYear;
     }
 
-    public void setModelYear(Date modelYear) {
-        this.modelYear = modelYear;
+    public void setBuildYear(int buildYear) {
+        this.buildYear = buildYear;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vehicleModel=" + vehicleModel +
+                ", exteriorCollor=" + exteriorCollor +
+                ", paintType=" + paintType +
+                ", interiorType=" + interiorType +
+                ", BuildYear=" + buildYear +
+                '}';
     }
 }

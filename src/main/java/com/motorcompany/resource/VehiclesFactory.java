@@ -38,6 +38,7 @@ public class VehiclesFactory {
     @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
         long respondeID = serviceProducer.factorySave(factory);
+        serviceProducer.fabricationStatus(factory, "Not inicialized");
         serviceProducer.FabricationProcess(factory);
         return new ResponseEntity<>(respondeID, HttpStatus.CREATED);
     }

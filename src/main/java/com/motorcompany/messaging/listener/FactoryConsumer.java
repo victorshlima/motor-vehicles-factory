@@ -36,7 +36,7 @@ public class FactoryConsumer {
     @Autowired
     JmsTemplate jmsTemplate;
     @Autowired
-    ServiceProducer factoryServiceImpl = new ServiceProducer();
+    ServiceProducer serviceProducer = new ServiceProducer();
     @Autowired
     GenericMessageConverter factoryMessageConverter;
     @Value("${activemq.broker-url}")
@@ -60,7 +60,8 @@ public class FactoryConsumer {
     @JmsListener(destination = FACTORY_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
-        factoryServiceImpl.FabricationProcessSaveNewVehicle(factory);
+        serviceProducer.CreateVehicle(factory);
+        serviceProducer.fabricationStatus(factory, "Initializing fabrication");
         jmsTemplate.convertAndSend(PAINT_QUEUE, factory);
     }
 
