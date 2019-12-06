@@ -23,34 +23,34 @@ public class VehicleModels {
     public VehicleModels(VehicleModelDao vehicleDao) {
         this.vehicleModelDao = vehicleDao;
     }
-    @PostMapping(path = "/vehicle")
+    @PostMapping(path = "/vehicleModels")
     @ApiOperation(value = "Create a Vehicle Entity", response = VehicleModels.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody VehicleModel vehicleModel) {
         return new ResponseEntity<>(vehicleModelDao.save(vehicleModel),HttpStatus.CREATED);
     }
 
     //PATCH causa erro no MOCK test
-    @PutMapping(path = "vehicle/{modelCode}")
+    @PutMapping(path = "vehicleModels/{modelCode}")
     @ApiOperation(value = "atualize a Vehicle Entity", response = Integer.class)
     public ResponseEntity<?> save(@PathVariable int modelCode, @RequestBody VehicleModel vehicleModel) {
         return new ResponseEntity<>(vehicleModelDao.save(vehicleModel).getModelCode(),HttpStatus.CREATED);
     }
 
-    @GetMapping("vehicle/{modelCode}")
+    @GetMapping("vehicleModels/{modelCode}")
     @ApiOperation(value = "Get a specific a Vehicle Entity", response = VehicleModel.class)
     @ResponseStatus(HttpStatus.OK)
     public VehicleModel getVehicleById(@PathVariable("modelCode") int modelCode) {
         return vehicleModelDao.findByModelCode(modelCode);
     }
 
-    @GetMapping("vehicle")
+    @GetMapping("vehicleModels")
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     public List<VehicleModel> getAllVehicle() {
         return vehicleModelDao.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "vehicle/{modelCode}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.DELETE, value = "vehicleModels/{modelCode}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable int modelCode) {
 

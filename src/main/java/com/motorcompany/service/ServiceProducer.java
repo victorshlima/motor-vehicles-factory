@@ -6,7 +6,7 @@ import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.dao.VehicleModelDao;
 import com.motorcompany.domain.Factory;
 import com.motorcompany.domain.VehicleModel;
-import com.motorcompany.domain.Vehiculo;
+import com.motorcompany.domain.Vehicle;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +35,14 @@ public class ServiceProducer {
     @Autowired
     VehicleModelDao vehicleModelDao;
 
-    Vehiculo vehiculo;
+    Vehicle vehiculo;
     VehicleModel vehicleModel;
 
     @Value("${activemq.broker-url}")
     private String brokerUrl;
 
     public ServiceProducer() {
+        this.vehiculo = new Vehicle();
         JmsTemplate jmsTemplate = new JmsTemplate ();
         jmsTemplate.setMessageConverter(messageConverter());
     }
@@ -52,19 +53,19 @@ public class ServiceProducer {
 
     }
 
-    public  void FabricationProcessStesp1(Factory factory) {
+    public  void FabricationProcessSaveNewVehicle(Factory factory) {
         vehicleModel =  vehicleModelDao.findByModelCode(factory.getModelCode());
         vehiculo.setVehicleModel(vehicleModel);
      //   vehiculo.setModelYear(new Date().getYear());
         vehicleDao.save(vehiculo);
     }
 
-    public  void FabricationProcessStesp2(ExteriorCollor exteriorCollor) {
+    public  void FabricationProcessPaintVehicle(ExteriorCollor exteriorCollor) {
         vehiculo.setExteriorCollor(exteriorCollor);
         vehicleDao.save(vehiculo);
     }
 
-    public  void FabricationProcessStesp3(InteriorType interiorType) {
+    public  void FabricationProcessInteriorType(InteriorType interiorType) {
         vehiculo.setInteriorType(interiorType);
         vehicleDao.save(vehiculo);
     }

@@ -50,7 +50,7 @@ public class InteriorConsumer {
      @JmsListener(destination = INTERIOR_TYPE_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
          Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessStesp3(factory.getInteriorType());
+         factoryServiceImpl.FabricationProcessInteriorType(factory.getInteriorType());
       }
 
     @Bean

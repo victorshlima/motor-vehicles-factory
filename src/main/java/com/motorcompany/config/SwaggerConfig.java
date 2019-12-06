@@ -33,7 +33,7 @@ class SwaggerConfig implements WebMvcConfigurer {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(metaData())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.motorcompany.resource.rest"))
+                .apis(RequestHandlerSelectors.basePackage("com.motorcompany.resource"))
                 .paths(PathSelectors.any())
                 .build();
     }

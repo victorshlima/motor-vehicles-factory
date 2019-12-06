@@ -48,7 +48,7 @@ public class PaintConsumer {
      @JmsListener(destination = PAINT_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
          Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessStesp2(factory.getExteriorCollor());
+         factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor());
 
       }
 

@@ -53,7 +53,7 @@ public class FactoryConsumer {
      @JmsListener(destination = FACTORY_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
          Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessStesp1(factory);
+         factoryServiceImpl.FabricationProcessSaveNewVehicle(factory);
 
       }
 

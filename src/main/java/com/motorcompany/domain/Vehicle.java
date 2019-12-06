@@ -13,9 +13,9 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-    @Table(name = "vehiculo")
+    @Table(name = "vehicle")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    public class Vehiculo extends AbstractEntity  {
+    public class Vehicle extends AbstractEntity  {
 
     @JsonFormat(pattern = "yyyy")
     @Temporal(TemporalType.TIMESTAMP)
