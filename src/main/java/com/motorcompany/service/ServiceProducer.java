@@ -40,6 +40,7 @@ public class ServiceProducer {
     VehicleModelDao vehicleModelDao;
     Vehicle vehiculo;
     VehicleModel vehicleModel;
+    Factory factory;
 
     @Value("${activemq.broker-url}")
     private String brokerUrl;
@@ -57,7 +58,6 @@ public class ServiceProducer {
     public void CreateVehicle(Factory factory) {
         try {
             vehicleModel = getVehicleModelByCode(factory.getModelCode());
-
             vehiculo.setVehicleModel(vehicleModel);
             Calendar cal = GregorianCalendar.getInstance();
             vehiculo.setBuildYear(cal.get(Calendar.YEAR));
@@ -81,8 +81,10 @@ public class ServiceProducer {
  }
     public void SetInteriorType(Factory factory) {
         try {
+       fabricationStatus(factory, "last Step initialized ");
         vehiculo.setInteriorType(factory.getInteriorType());
         vehicleDao.save(vehiculo);
+            fabricationStatus(factory, "DONE!");
         }catch (Exception e){
             fabricationStatus(factory, "problem on set InteriorType \n exception: "
                     + e.getLocalizedMessage());
@@ -90,6 +92,17 @@ public class ServiceProducer {
     }
     public long factorySave(Factory factory) {
         return factoryDao.save(factory).getId();
+    }
+
+    public String factoryGetStatus(long id)
+    {
+       try {
+           Optional<Factory> factoryOptional  = factoryDao.findById(id);
+           this.factory =factoryOptional.get();
+           return  this.factory.getStatus();
+       }catch(Exception e){
+            throw new NotExistDaoException("Id not localized");
+       }
     }
 
     public void fabricationStatus(Factory factory, String status ) {
@@ -108,9 +121,6 @@ public class ServiceProducer {
             throw new NotExistDaoException("Error agenda not found");
         }
     }
-
-
-
 
     @Bean
     public MessageConverter messageConverter() {

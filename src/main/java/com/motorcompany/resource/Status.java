@@ -21,8 +21,4 @@ public class Status {
         return "Online";
     }
 
-    @GetMapping("/status/{message}")
-    public String publish(@PathVariable("message") final String message) {
-        return "Online";
-    }
-}
+  }

@@ -51,6 +51,7 @@ public class InteriorConsumer {
     public void consumer(Object factoryObject) throws IOException, JMSException {
         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
         factoryServiceImpl.SetInteriorType(factory);
+
     }
 
     @Bean

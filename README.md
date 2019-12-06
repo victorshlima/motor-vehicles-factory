@@ -7,9 +7,8 @@ http://localhost:9000/swagger-ui.html
 http://localhost:9000/swagger-ui.html#/vehicle-models
 ##2
 /v1/factory
-
 ##3
-/v1/factory/{}
+http://localhost:9000/v1/factory/{id}
 ##4
 http://localhost:9000/v1/status
 ## 5
