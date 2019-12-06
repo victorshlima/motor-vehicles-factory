@@ -24,12 +24,16 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 import java.io.IOException;
 
+import static com.motorcompany.messaging.listener.InteriorConsumer.INTERIOR_TYPE_QUEUE;
+
 
 @Component
 public class PaintConsumer {
     private static Logger log = LoggerFactory.getLogger(PaintConsumer.class);
     public static final String PAINT_QUEUE = "paint.queue";
     public static final String PAINT_TOPIC = "paint.topic";
+    @Autowired
+    JmsTemplate jmsTemplate;
 
     @Value("${activemq.broker-url}")
     private String brokerUrl;
@@ -48,7 +52,8 @@ public class PaintConsumer {
      @JmsListener(destination = PAINT_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
          Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor());
+         factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor(),  factory.getPaintType()  );
+         jmsTemplate.convertAndSend(INTERIOR_TYPE_QUEUE, factory);
 
       }
 
@@ -58,9 +63,6 @@ public class PaintConsumer {
         converter.setTargetType(MessageType.TEXT);
         return converter;
     }
-
-
-
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();

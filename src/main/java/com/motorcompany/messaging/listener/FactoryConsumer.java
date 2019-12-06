@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
@@ -19,27 +20,32 @@ import org.springframework.jms.support.converter.MessageType;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 import org.springframework.stereotype.Component;
 
-import javax.jms.JMSException;
-import javax.jms.Queue;
-import javax.jms.Topic;
+import javax.jms.*;
 import java.io.IOException;
+
+import static com.motorcompany.messaging.listener.PaintConsumer.PAINT_QUEUE;
 
 
 @Component
 public class FactoryConsumer {
     private static Logger log = LoggerFactory.getLogger(FactoryConsumer.class);
     public static final String FACTORY_QUEUE = "factory.queue";
+    public static final String REPLY_FACTORY_QUEUE = "reply.factory.queue";
     public static final String FACTORY_TOPIC = "factory.topic";
 
     @Value("${activemq.broker-url}")
     private String brokerUrl;
 
     @Bean
-    public Queue QueueFACTORY() {
+    public Queue QueueFactory() {
         return new ActiveMQQueue(FACTORY_QUEUE);
     }
     @Bean
-    public Topic TopicFACTORY() {
+    public Queue QueueReplyFACTORY() {
+        return new ActiveMQQueue(REPLY_FACTORY_QUEUE);
+    }
+    @Bean
+    public Topic TopicFactory() {
         return new ActiveMQTopic(FACTORY_TOPIC);
     }
     @Autowired
@@ -54,7 +60,7 @@ public class FactoryConsumer {
     public void consumer(Object factoryObject) throws IOException, JMSException {
          Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
          factoryServiceImpl.FabricationProcessSaveNewVehicle(factory);
-
+         jmsTemplate.convertAndSend(PAINT_QUEUE, factory);
       }
 
     @Bean
@@ -78,4 +84,9 @@ public class FactoryConsumer {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
+
+
+
+
+
   }

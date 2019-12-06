@@ -9,6 +9,7 @@ import com.motorcompany.domain.VehicleModel;
 import com.motorcompany.domain.Vehicle;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
+import com.motorcompany.enums.vehicle.PaintType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -60,7 +61,8 @@ public class ServiceProducer {
         vehicleDao.save(vehiculo);
     }
 
-    public  void FabricationProcessPaintVehicle(ExteriorCollor exteriorCollor) {
+    public  void FabricationProcessPaintVehicle(ExteriorCollor exteriorCollor,PaintType paintType) {
+        vehiculo.setPaintType(paintType);
         vehiculo.setExteriorCollor(exteriorCollor);
         vehicleDao.save(vehiculo);
     }
@@ -69,6 +71,11 @@ public class ServiceProducer {
         vehiculo.setInteriorType(interiorType);
         vehicleDao.save(vehiculo);
     }
+    public long factorySave(Factory factory) {
+        return factoryDao.save(factory).getId();
+    }
+
+
 
     @Bean
     public MessageConverter messageConverter() {

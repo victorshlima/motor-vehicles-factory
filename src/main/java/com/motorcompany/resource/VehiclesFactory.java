@@ -33,8 +33,9 @@ public class VehiclesFactory {
     @PostMapping(path = "/factory")
     @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
-        LOGGER.info("");
+      long respondeID =  serviceProducer.factorySave(factory);
         serviceProducer.FabricationProcess(factory);
-        return new ResponseEntity<>(factoryDao.save(factory).getId(),HttpStatus.CREATED);
+
+        return new ResponseEntity<>(respondeID,HttpStatus.CREATED);
     }
 }
