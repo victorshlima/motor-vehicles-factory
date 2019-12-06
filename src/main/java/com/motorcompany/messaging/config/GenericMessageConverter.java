@@ -30,7 +30,7 @@ public class GenericMessageConverter implements MessageConverter {
 
     @Override
     public Message toMessage(Object object, Session session)
-       throws JMSException {
+            throws JMSException {
         Factory factory = (Factory) object;
         String payload = null;
         try {
@@ -60,8 +60,8 @@ public class GenericMessageConverter implements MessageConverter {
     }
 
     public Object JsonUnMarshaller(Object message, Class<?> type) throws JMSException, IOException {
-         TextMessage textMessage = (TextMessage) message;
-         String jsonString = textMessage.getText();
+        TextMessage textMessage = (TextMessage) message;
+        String jsonString = textMessage.getText();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(jsonString);
         Object factory = (Factory) mapper.readValue(jsonString, type);
@@ -75,6 +75,4 @@ public class GenericMessageConverter implements MessageConverter {
         Object factory = (Factory) mapper.readValue(jsonString, type);
         return factory;
     }
-
-
 }

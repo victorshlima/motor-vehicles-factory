@@ -1,14 +1,15 @@
 package com.motorcompany.resource;
 
 import com.motorcompany.dao.VehicleModelDao;
+import com.motorcompany.domain.VehicleModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.motorcompany.domain.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -23,17 +24,18 @@ public class VehicleModels {
     public VehicleModels(VehicleModelDao vehicleDao) {
         this.vehicleModelDao = vehicleDao;
     }
+
     @PostMapping(path = "/vehicleModels")
     @ApiOperation(value = "Create a Vehicle Entity", response = VehicleModels.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody VehicleModel vehicleModel) {
-        return new ResponseEntity<>(vehicleModelDao.save(vehicleModel),HttpStatus.CREATED);
+        return new ResponseEntity<>(vehicleModelDao.save(vehicleModel), HttpStatus.CREATED);
     }
 
     //PATCH causa erro no MOCK test
     @PutMapping(path = "vehicleModels/{modelCode}")
     @ApiOperation(value = "atualize a Vehicle Entity", response = Integer.class)
     public ResponseEntity<?> save(@PathVariable int modelCode, @RequestBody VehicleModel vehicleModel) {
-        return new ResponseEntity<>(vehicleModelDao.save(vehicleModel).getModelCode(),HttpStatus.CREATED);
+        return new ResponseEntity<>(vehicleModelDao.save(vehicleModel).getModelCode(), HttpStatus.CREATED);
     }
 
     @GetMapping("vehicleModels/{modelCode}")

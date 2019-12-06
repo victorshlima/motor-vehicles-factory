@@ -5,7 +5,6 @@ import com.motorcompany.messaging.config.GenericMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.activemq.command.ActiveMQTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 import javax.jms.Queue;
-import javax.jms.Topic;
 import java.io.IOException;
 
 import static com.motorcompany.messaging.listener.InteriorConsumer.INTERIOR_TYPE_QUEUE;
@@ -29,30 +27,30 @@ import static com.motorcompany.messaging.listener.InteriorConsumer.INTERIOR_TYPE
 
 @Component
 public class PaintConsumer {
-    private static Logger log = LoggerFactory.getLogger(PaintConsumer.class);
     public static final String PAINT_QUEUE = "paint.queue";
     public static final String PAINT_TOPIC = "paint.topic";
+    private static Logger log = LoggerFactory.getLogger(PaintConsumer.class);
     @Autowired
     JmsTemplate jmsTemplate;
-
-    @Value("${activemq.broker-url}")
-    private String brokerUrl;
-    @Bean
-    public Queue QueueFACTORY() {     return new ActiveMQQueue(PAINT_QUEUE);
-    }
-
     @Autowired
-    ServiceProducer factoryServiceImpl  = new ServiceProducer();
+    ServiceProducer factoryServiceImpl = new ServiceProducer();
     @Autowired
     GenericMessageConverter factoryMessageConverter;
+    @Value("${activemq.broker-url}")
+    private String brokerUrl;
 
-     @JmsListener(destination = PAINT_QUEUE)
+    @Bean
+    public Queue QueueFACTORY() {
+        return new ActiveMQQueue(PAINT_QUEUE);
+    }
+
+    @JmsListener(destination = PAINT_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
-         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor(),  factory.getPaintType()  );
-         jmsTemplate.convertAndSend(INTERIOR_TYPE_QUEUE, factory);
+        Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
+        factoryServiceImpl.FabricationProcessPaintVehicle(factory.getExteriorCollor(), factory.getPaintType());
+        jmsTemplate.convertAndSend(INTERIOR_TYPE_QUEUE, factory);
 
-      }
+    }
 
     @Bean
     public MessageConverter messageConverter() {
@@ -60,11 +58,13 @@ public class PaintConsumer {
         converter.setTargetType(MessageType.TEXT);
         return converter;
     }
+
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
         return factory;
     }
+
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
@@ -72,4 +72,4 @@ public class PaintConsumer {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
-  }
+}

@@ -1,4 +1,5 @@
 package com.motorcompany.messaging.config;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -18,9 +19,10 @@ import org.springframework.messaging.handler.annotation.support.DefaultMessageHa
 @EnableJms
 @Configuration
 public class ActiveMQConfig {
+    @Autowired(required = false)
+    public MessageConverter messageConverter;
     @Value("${activemq.broker-url}")
     private String brokerUrl;
-
 
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
@@ -29,20 +31,18 @@ public class ActiveMQConfig {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
-    @Autowired(required = false)
-    public MessageConverter messageConverter;
 
     @Bean
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setMessageConverter( messageConverter() );
+        jmsTemplate.setMessageConverter(messageConverter());
         return new JmsTemplate(activeMQConnectionFactory());
     }
 
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
-          return factory;
+        return factory;
     }
 
     @Bean

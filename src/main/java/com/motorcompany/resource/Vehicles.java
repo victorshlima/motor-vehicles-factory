@@ -2,12 +2,12 @@ package com.motorcompany.resource;
 
 import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.domain.Vehicle;
-import com.motorcompany.domain.VehicleModel;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.transaction.Transactional;

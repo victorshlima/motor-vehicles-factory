@@ -5,8 +5,8 @@ import com.motorcompany.dao.FactoryDao;
 import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.dao.VehicleModelDao;
 import com.motorcompany.domain.Factory;
-import com.motorcompany.domain.VehicleModel;
 import com.motorcompany.domain.Vehicle;
+import com.motorcompany.domain.VehicleModel;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
 import com.motorcompany.enums.vehicle.PaintType;
@@ -47,38 +47,38 @@ public class ServiceProducer {
 
     public ServiceProducer() {
         this.vehiculo = new Vehicle();
-        JmsTemplate jmsTemplate = new JmsTemplate ();
+        JmsTemplate jmsTemplate = new JmsTemplate();
         jmsTemplate.setMessageConverter(messageConverter());
     }
 
-    public  void FabricationProcess(Factory factory) {
+    public void FabricationProcess(Factory factory) {
         jmsTemplate.setMessageConverter(messageConverter());
         jmsTemplate.convertAndSend(FACTORY_QUEUE, factory);
 
     }
 
-    public  void FabricationProcessSaveNewVehicle(Factory factory) {
-        vehicleModel =  vehicleModelDao.findByModelCode(factory.getModelCode());
+    public void FabricationProcessSaveNewVehicle(Factory factory) {
+        vehicleModel = vehicleModelDao.findByModelCode(factory.getModelCode());
         vehiculo.setVehicleModel(vehicleModel);
         Calendar cal = GregorianCalendar.getInstance();
-      //  vehiculo.setModelYear(cal.get(Calendar.YEAR));
+        //  vehiculo.setModelYear(cal.get(Calendar.YEAR));
         vehicleDao.save(vehiculo);
     }
 
-    public  void FabricationProcessPaintVehicle(ExteriorCollor exteriorCollor,PaintType paintType) {
+    public void FabricationProcessPaintVehicle(ExteriorCollor exteriorCollor, PaintType paintType) {
         vehiculo.setPaintType(paintType);
         vehiculo.setExteriorCollor(exteriorCollor);
         vehicleDao.save(vehiculo);
     }
 
-    public  void FabricationProcessInteriorType(InteriorType interiorType) {
+    public void FabricationProcessInteriorType(InteriorType interiorType) {
         vehiculo.setInteriorType(interiorType);
         vehicleDao.save(vehiculo);
     }
+
     public long factorySave(Factory factory) {
         return factoryDao.save(factory).getId();
     }
-
 
 
     @Bean

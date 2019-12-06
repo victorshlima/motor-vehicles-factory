@@ -27,9 +27,13 @@ import java.io.IOException;
 
 @Component
 public class InteriorConsumer {
-    private static Logger log = LoggerFactory.getLogger(InteriorConsumer.class);
     public static final String INTERIOR_TYPE_QUEUE = "interior.queue";
-    public static final String INTERIOR_TYPE_TOPIC= "interior.topic";
+    public static final String INTERIOR_TYPE_TOPIC = "interior.topic";
+    private static Logger log = LoggerFactory.getLogger(InteriorConsumer.class);
+    @Autowired
+    ServiceProducer factoryServiceImpl = new ServiceProducer();
+    @Autowired
+    GenericMessageConverter factoryMessageConverter;
     @Value("${activemq.broker-url}")
     private String brokerUrl;
 
@@ -37,21 +41,17 @@ public class InteriorConsumer {
     public Queue QueueFACTORY() {
         return new ActiveMQQueue(INTERIOR_TYPE_QUEUE);
     }
+
     @Bean
     public Topic TopicFACTORY() {
         return new ActiveMQTopic(INTERIOR_TYPE_TOPIC);
     }
 
-    @Autowired
-    ServiceProducer factoryServiceImpl  = new ServiceProducer();
-    @Autowired
-    GenericMessageConverter factoryMessageConverter;
-
-     @JmsListener(destination = INTERIOR_TYPE_QUEUE)
+    @JmsListener(destination = INTERIOR_TYPE_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
-         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessInteriorType(factory.getInteriorType());
-      }
+        Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
+        factoryServiceImpl.FabricationProcessInteriorType(factory.getInteriorType());
+    }
 
     @Bean
     public MessageConverter messageConverter() {
@@ -63,7 +63,7 @@ public class InteriorConsumer {
     @Bean
     public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setMessageConverter( messageConverter() );
+        jmsTemplate.setMessageConverter(messageConverter());
         return new JmsTemplate(activeMQConnectionFactory());
     }
 
@@ -72,6 +72,7 @@ public class InteriorConsumer {
         DefaultMessageHandlerMethodFactory factory = new DefaultMessageHandlerMethodFactory();
         return factory;
     }
+
     @Bean
     public ActiveMQConnectionFactory activeMQConnectionFactory() {
         ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory();
@@ -79,4 +80,4 @@ public class InteriorConsumer {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
-  }
+}

@@ -9,15 +9,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class StatusConsumer {
-    private static Logger log = LoggerFactory.getLogger(StatusConsumer.class);
-
     public static final String STATUS_QUEUE = "status.queue";
-    public static final String STATUS_TOPIC= "status.topic";
-
+    public static final String STATUS_TOPIC = "status.topic";
+    private static Logger log = LoggerFactory.getLogger(StatusConsumer.class);
     @Autowired
     JmsTemplate jmsTemplate;
-     @JmsListener(destination = STATUS_QUEUE)
+
+    @JmsListener(destination = STATUS_QUEUE)
     public void consumer(String message) {
         System.out.println(message);
     }
-  }
+}

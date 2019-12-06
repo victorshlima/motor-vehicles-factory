@@ -2,37 +2,28 @@ package com.motorcompany.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.motorcompany.enums.vehicle.ExteriorCollor;
 import com.motorcompany.enums.vehicle.InteriorType;
 import com.motorcompany.enums.vehicle.PaintType;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.ui.Model;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-    @Table(name = "vehicle")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    public class Vehicle extends AbstractEntity  {
-
-
+@Table(name = "vehicle")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Vehicle extends AbstractEntity {
     @JsonFormat(pattern = "yyyy")
     @Column(name = "modelYear")
     private Date modelYear;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicleModel")
     private VehicleModel vehicleModel;
-
     @Column
     private ExteriorCollor exteriorCollor;
-
     @Column
     private PaintType paintType;
-
     @Column
     private InteriorType interiorType;
 
@@ -72,8 +63,7 @@ import java.util.Date;
         return modelYear;
     }
 
-    public void setModelYear(Date modelYear)
-    {
+    public void setModelYear(Date modelYear) {
         this.modelYear = modelYear;
     }
 }

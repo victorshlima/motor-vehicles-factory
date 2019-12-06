@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
@@ -20,12 +23,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @RequestMapping(value = "v1")
 public class VehiclesFactory {
 
-    private static final Logger LOGGER =   LoggerFactory.getLogger(GenericMessageConverter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GenericMessageConverter.class);
 
     @Autowired
     private final FactoryDao factoryDao;
     @Autowired
     private ServiceProducer serviceProducer;
+
     public VehiclesFactory(FactoryDao factoryDao) {
         this.factoryDao = factoryDao;
     }
@@ -33,8 +37,8 @@ public class VehiclesFactory {
     @PostMapping(path = "/factory")
     @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
-      long respondeID =  serviceProducer.factorySave(factory);
+        long respondeID = serviceProducer.factorySave(factory);
         serviceProducer.FabricationProcess(factory);
-        return new ResponseEntity<>(respondeID,HttpStatus.CREATED);
+        return new ResponseEntity<>(respondeID, HttpStatus.CREATED);
     }
 }
