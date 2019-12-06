@@ -41,8 +41,6 @@ public class PaintConsumer {
     public Queue QueueFACTORY() {     return new ActiveMQQueue(PAINT_QUEUE);
     }
 
-    public Topic TopicFACTORY() {        return new ActiveMQTopic(PAINT_TOPIC);
-    }
 
     @Autowired
     ServiceProducer factoryServiceImpl  = new ServiceProducer();
