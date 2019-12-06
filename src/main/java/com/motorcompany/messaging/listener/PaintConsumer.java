@@ -59,12 +59,7 @@ public class PaintConsumer {
         return converter;
     }
 
-    @Bean
-    public JmsTemplate jmsTemplate() {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setMessageConverter( messageConverter() );
-        return new JmsTemplate(activeMQConnectionFactory());
-    }
+
 
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
