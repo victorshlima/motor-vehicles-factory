@@ -32,6 +32,27 @@ public class Factory extends AbstractEntity implements Serializable {
 
     @Column(nullable = true)
     private InteriorType interiorType;
+    @Column
+    private String status;
+
+    public Factory() {
+
+    }
+
+    public Factory(@NotNull(message = "modelCode is a mandatory field") int modelCode, ExteriorCollor exteriorCollor, PaintType paintType, InteriorType interiorType) {
+        this.modelCode = modelCode;
+        this.exteriorCollor = exteriorCollor;
+        this.paintType = paintType;
+        this.interiorType = interiorType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public int getModelCode() {
         return modelCode;
@@ -63,18 +84,6 @@ public class Factory extends AbstractEntity implements Serializable {
 
     public void setPaintType(PaintType paintType) {
         this.paintType = paintType;
-    }
-
-    public Factory() {
-
-    }
-
-
-    public Factory(@NotNull(message = "modelCode is a mandatory field") int modelCode, ExteriorCollor exteriorCollor, PaintType paintType, InteriorType interiorType) {
-        this.modelCode = modelCode;
-        this.exteriorCollor = exteriorCollor;
-        this.paintType = paintType;
-        this.interiorType = interiorType;
     }
 
     @Override

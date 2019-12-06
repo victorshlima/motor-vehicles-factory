@@ -1,7 +1,7 @@
 package com.motorcompany.messaging.listener;
 
 import com.motorcompany.domain.Factory;
-import com.motorcompany.messaging.config.FactoryMessageConverter;
+import com.motorcompany.messaging.config.GenericMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -24,38 +24,46 @@ import javax.jms.Queue;
 import javax.jms.Topic;
 import java.io.IOException;
 
+import static com.motorcompany.messaging.listener.PaintConsumer.PAINT_QUEUE;
+
 
 @Component
 public class FactoryConsumer {
-    private static Logger log = LoggerFactory.getLogger(FactoryConsumer.class);
     public static final String FACTORY_QUEUE = "factory.queue";
+    public static final String REPLY_FACTORY_QUEUE = "reply.factory.queue";
     public static final String FACTORY_TOPIC = "factory.topic";
-
+    private static Logger log = LoggerFactory.getLogger(FactoryConsumer.class);
+    @Autowired
+    JmsTemplate jmsTemplate;
+    @Autowired
+    ServiceProducer serviceProducer = new ServiceProducer();
+    @Autowired
+    GenericMessageConverter factoryMessageConverter;
     @Value("${activemq.broker-url}")
     private String brokerUrl;
 
     @Bean
-    public Queue QueueFACTORY() {
+    public Queue QueueFactory() {
         return new ActiveMQQueue(FACTORY_QUEUE);
     }
+
     @Bean
-    public Topic TopicFACTORY() {
+    public Queue QueueReplyFACTORY() {
+        return new ActiveMQQueue(REPLY_FACTORY_QUEUE);
+    }
+
+    @Bean
+    public Topic TopicFactory() {
         return new ActiveMQTopic(FACTORY_TOPIC);
     }
-    @Autowired
-    JmsTemplate jmsTemplate;
 
-    @Autowired
-    ServiceProducer factoryServiceImpl  = new ServiceProducer();
-    @Autowired
-    FactoryMessageConverter factoryMessageConverter;
-
-     @JmsListener(destination = FACTORY_QUEUE)
+    @JmsListener(destination = FACTORY_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {
-         Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class );
-         factoryServiceImpl.FabricationProcessStesp1(factory);
-
-      }
+        Factory factory = (Factory) factoryMessageConverter.JsonUnMarshaller(factoryObject, Factory.class);
+        serviceProducer.CreateVehicle(factory);
+        serviceProducer.fabricationStatus(factory, "Initializing fabrication");
+        jmsTemplate.convertAndSend(PAINT_QUEUE, factory);
+    }
 
     @Bean
     public MessageConverter messageConverter() {
@@ -64,12 +72,6 @@ public class FactoryConsumer {
         return converter;
     }
 
-    @Bean
-    public JmsTemplate jmsTemplate() {
-        JmsTemplate jmsTemplate = new JmsTemplate();
-        jmsTemplate.setMessageConverter( messageConverter() );
-        return new JmsTemplate(activeMQConnectionFactory());
-    }
 
     @Bean
     public DefaultMessageHandlerMethodFactory handlerMethodFactory() {
@@ -84,4 +86,6 @@ public class FactoryConsumer {
         factory.setBrokerURL(brokerUrl);
         return factory;
     }
-  }
+
+
+}

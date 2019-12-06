@@ -1,26 +1,17 @@
 package com.motorcompany.dao;
 
 
-import com.motorcompany.domain.Factory;
-import com.motorcompany.domain.Vehiculo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.motorcompany.domain.Vehicle;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 
-
-
-
 @Repository
-public interface VehicleDao extends CrudRepository<Vehiculo, Long> {
+public interface VehicleDao extends CrudRepository<Vehicle, Long> {
 
-    List<Vehiculo> findAll();
-    Factory save(Factory factory);
+    List<Vehicle> findAll();
 
-
-    @Transactional
-    void deleteById(long id);
+    Vehicle findById(long id);
 }

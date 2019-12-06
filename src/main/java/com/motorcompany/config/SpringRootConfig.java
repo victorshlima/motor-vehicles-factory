@@ -1,4 +1,4 @@
-package com.motorcompany;
+package com.motorcompany.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
