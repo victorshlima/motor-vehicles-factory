@@ -1,10 +1,9 @@
-package com.motorcompany.resource.rest;
+package com.motorcompany.resource;
 
 
 import com.motorcompany.dao.VehicleModelDao;
-import com.motorcompany.domain.Factory;
 import com.motorcompany.domain.VehicleModel;
-import com.motorcompany.messaging.config.FactoryMessageConverter;
+import com.motorcompany.messaging.config.GenericMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -19,23 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//import com.motorcompany.messaging.config.FactoryMessageConverter;
- //import static com.motorcompany.messaging.config.ConfigFatoryQueue.FACTORY_QUEUE;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
-//import io.swagger.annotations.ApiOperation;
-
-
 @EnableSwagger2
 @RestController
 @RequestMapping(value = "v1")
-public class VehicleModels {
-    private static final Logger LOGGER =   LoggerFactory.getLogger(FactoryMessageConverter.class);
+public class Vehicle {
+    private static final Logger LOGGER =   LoggerFactory.getLogger(GenericMessageConverter.class);
     @Autowired
     JmsTemplate jmsTemplate;
     @Autowired
     private  VehicleModelDao vehicleModelDao;
     private ServiceProducer factoryServiceImpl;
-    public VehicleModels(VehicleModelDao vehicleModelDao) {
+    public Vehicle(VehicleModelDao vehicleModelDao) {
         this.vehicleModelDao = vehicleModelDao;
     }
 

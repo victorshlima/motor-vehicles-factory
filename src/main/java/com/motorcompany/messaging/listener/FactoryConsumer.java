@@ -1,7 +1,7 @@
 package com.motorcompany.messaging.listener;
 
 import com.motorcompany.domain.Factory;
-import com.motorcompany.messaging.config.FactoryMessageConverter;
+import com.motorcompany.messaging.config.GenericMessageConverter;
 import com.motorcompany.service.ServiceProducer;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -48,7 +48,7 @@ public class FactoryConsumer {
     @Autowired
     ServiceProducer factoryServiceImpl  = new ServiceProducer();
     @Autowired
-    FactoryMessageConverter factoryMessageConverter;
+    GenericMessageConverter factoryMessageConverter;
 
      @JmsListener(destination = FACTORY_QUEUE)
     public void consumer(Object factoryObject) throws IOException, JMSException {

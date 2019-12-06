@@ -1,6 +1,4 @@
-package com.motorcompany.resource.rest;
-
-
+package com.motorcompany.resource;
 import com.motorcompany.domain.Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +23,6 @@ public class Status {
     @GetMapping("/status/{message}")
     public String publish(@PathVariable("message")
                           final String message) {
-        System.out.println(" Enviando mensagem" + message);
-        return "Published Successfully";
+        return "Online";
     }
 }

@@ -1,4 +1,4 @@
-package com.motorcompany.docs;
+package com.motorcompany.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,15 +12,12 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-//import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-
 /**
- * @author Victor Lima on 29/11/2019.
+ * @author Victor Lima on 05/12/2019.
  */
 @EnableSwagger2
 @Configuration
-class SwaggerDocConfig implements WebMvcConfigurer {
+class SwaggerConfig implements WebMvcConfigurer {
         @Override
         public void addResourceHandlers(ResourceHandlerRegistry registry) {
             registry

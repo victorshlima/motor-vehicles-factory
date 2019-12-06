@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.motorcompany.messaging.listener.FactoryConsumer.FACTORY_QUEUE;
 
-
 @Service
 @Transactional
 public class ServiceProducer {

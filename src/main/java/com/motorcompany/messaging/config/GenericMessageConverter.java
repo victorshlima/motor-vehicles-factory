@@ -21,9 +21,9 @@ import java.io.IOException;
 
 @EnableJms
 @Component
-public class FactoryMessageConverter implements MessageConverter {
+public class GenericMessageConverter implements MessageConverter {
     private static final Logger LOGGER =
-            LoggerFactory.getLogger(FactoryMessageConverter.class);
+            LoggerFactory.getLogger(GenericMessageConverter.class);
 
     @Autowired
     ObjectMapper mapper;
