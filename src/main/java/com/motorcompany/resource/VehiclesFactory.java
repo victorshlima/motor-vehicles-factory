@@ -25,7 +25,7 @@ public class VehiclesFactory {
     @Autowired
     private final FactoryDao factoryDao;
     @Autowired
-    private ServiceProducer factoryServiceImpl;
+    private ServiceProducer serviceProducer;
     public VehiclesFactory(FactoryDao factoryDao) {
         this.factoryDao = factoryDao;
     }
@@ -34,7 +34,7 @@ public class VehiclesFactory {
     @ApiOperation(value = "Create a Vehicle Entity", response = Factory.class)
     public ResponseEntity<?> CreateVehicleEntity(@RequestBody Factory factory) {
         LOGGER.info("");
-        factoryServiceImpl.FabricationProcess(factory);
+        serviceProducer.FabricationProcess(factory);
         return new ResponseEntity<>(factoryDao.save(factory).getId(),HttpStatus.CREATED);
     }
 }

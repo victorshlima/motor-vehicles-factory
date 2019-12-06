@@ -28,8 +28,8 @@ import java.io.IOException;
 @Component
 public class PaintConsumer {
     private static Logger log = LoggerFactory.getLogger(PaintConsumer.class);
-    public static final String PAINT_QUEUE = "factory.queue";
-    public static final String PAINT_TOPIC = "factory.topic";
+    public static final String PAINT_QUEUE = "paint.queue";
+    public static final String PAINT_TOPIC = "paint.topic";
 
     @Value("${activemq.broker-url}")
     private String brokerUrl;
