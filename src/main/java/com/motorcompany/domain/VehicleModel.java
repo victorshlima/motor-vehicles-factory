@@ -96,6 +96,9 @@ public class VehicleModel  {
         this.steppe = steppe;
     }
 
+    public VehicleModel() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
