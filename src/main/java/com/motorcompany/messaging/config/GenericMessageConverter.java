@@ -64,7 +64,7 @@ public class GenericMessageConverter implements MessageConverter {
         String jsonString = textMessage.getText();
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(jsonString);
-        Object factory = (Factory) mapper.readValue(jsonString, type);
+        Object factory = mapper.readValue(jsonString, type);
         return factory;
     }
 
@@ -72,7 +72,7 @@ public class GenericMessageConverter implements MessageConverter {
             throws JsonParseException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode rootNode = mapper.readTree(jsonString);
-        Object factory = (Factory) mapper.readValue(jsonString, type);
+        Object factory = mapper.readValue(jsonString, type);
         return factory;
     }
 }

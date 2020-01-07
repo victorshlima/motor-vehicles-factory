@@ -2,12 +2,10 @@ package com.motorcompany.resource;
 
 import com.motorcompany.dao.VehicleDao;
 import com.motorcompany.domain.Vehicle;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.transaction.Transactional;
@@ -25,16 +23,16 @@ public class Vehicles {
         this.vehicleDao = vehicleDao;
     }
 
-//    @GetMapping("vehicle/{modelCode}")
-//    @ApiOperation(value = "Get a specific a Vehicle Entity", response = VehicleModel.class)
+//    @ApiOperation(value = "Get a specific a Vehicle Entity", response = Vehicle.class)//    @GetMapping("vehicle/{modelCode}")
+
 //    @ResponseStatus(HttpStatus.OK)
-//    public VehicleModel getVehicleById(@PathVariable("modelCode") int modelCode) {
-//        return vehicleDao.findByModelCode(modelCode);
+//    public Vehicle getVehicleById(@PathVariable("modelCode") int modelCode) {
+//        return vehicleDao.(modelCode);
 //    }
 
+
+    @ApiOperation(value="Get All Vehicles", response = Vehicle.class)
     @GetMapping("vehicle")
-    @Transactional
-    @ResponseStatus(HttpStatus.OK)
     public List<Vehicle> getAllVehicle() {
         return vehicleDao.findAll();
     }

@@ -53,8 +53,36 @@ public class ServiceProducer {
     public void FabricationProcess(Factory factory) {
         jmsTemplate.setMessageConverter(messageConverter());
         jmsTemplate.convertAndSend(FACTORY_QUEUE, factory);
+    }
+
+    public VehicleModel UpdateModel(int modelId,VehicleModel vehicleModel ) {
+        VehicleModel  vehicleModelTmp = new  VehicleModel();
+        try {          
+            vehicleModelTmp = vehicleModelDao.findByModelCode(modelId);
+            vehicleModelTmp = vehicleModel;
+            vehicleModelDao.save(vehicleModelTmp);
+            return vehicleModelTmp;
+            // vehicleDao.save(vehiculo);
+          //  fabricationStatus(factory, "Model Structure Created, step set paint");
+        }catch (Exception e){
+         //   fabricationStatus(factory, "problem on create basic Structure \n exception:"
+             //       + e.getLocalizedMessage());
+            return vehicleModelTmp;
+        }
 
     }
+    public void deleteVehicleModel(int modelId ) {
+
+        vehicleModel = getVehicleModelByCode(modelId);
+        if(!vehicleModel.equals(null)) {
+            vehicleModelDao.deleteByModelCode(modelId);
+        }else{
+            throw new NotExistDaoException("deleteByModelCode " + modelId);
+        }
+    }
+
+
+
     public void CreateVehicle(Factory factory) {
         try {
             vehicleModel = getVehicleModelByCode(factory.getModelCode());
@@ -68,6 +96,9 @@ public class ServiceProducer {
                     + e.getLocalizedMessage());
         }
     }
+
+
+
     public void SetPaintVehicle(Factory factory) {
      try {
         vehiculo.setPaintType(factory.getPaintType());

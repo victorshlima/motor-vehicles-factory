@@ -16,6 +16,8 @@ public interface VehicleModelDao extends CrudRepository<VehicleModel, Long> {
 
     VehicleModel findByModelCode(int modelCode);
 
+
+
     @Transactional
     void deleteByModelCode(int modelCode);
 

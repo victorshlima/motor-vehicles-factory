@@ -7,7 +7,7 @@ public enum Whells {
     FOUR(4);
     private final int value;
 
-    private Whells(int value) {
+    Whells(int value) {
         this.value = value;
     }
 

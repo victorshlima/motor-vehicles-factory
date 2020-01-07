@@ -10,7 +10,7 @@ public enum Passagers {
     FOUR(4);
     private final int value;
 
-    private Passagers(int value) {
+    Passagers(int value) {
         this.value = value;
     }
 
